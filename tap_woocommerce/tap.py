@@ -38,7 +38,17 @@ class TapWooCommerce(Tap):
         th.Property("consumer_key", th.StringType, required=True),
         th.Property("consumer_secret", th.StringType, required=True),
         th.Property("site_url", th.StringType, required=True),
-        th.Property("start_date", th.DateTimeType, default="2000-01-01T00:00:00.000Z")
+        th.Property("start_date", th.DateTimeType, default="2000-01-01T00:00:00.000Z"),
+        th.Property(
+            "additional_params",
+            th.ArrayType(
+                th.ObjectType(
+                    th.Property("key", th.StringType, required=True),
+                    th.Property("value", th.StringType, required=True)
+                )
+            ),
+            required=False
+        )
     ).to_dict()
 
     def discover_streams(self) -> List[Stream]:
